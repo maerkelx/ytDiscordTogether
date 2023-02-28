@@ -18,7 +18,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+<<<<<<< HEAD
           tag_name: ${{ github.ref }}
+=======
+          tag_name: ${{ github.run_id }}
+>>>>>>> 7fe4303 (changed tag_name to github.run_id)
           release_name: Release ${{ github.ref }}
           body: |
             Changes in this Release

@@ -1,5 +1,5 @@
 #TODO: Create Gitaction for main and dev branch
-name: Release ${{ github.ref }}
+name: Youtube Discord Together
 run-name: ${{ github.actor }} started this workflow
 on: [push]
 #TODO: Add a TAG control process

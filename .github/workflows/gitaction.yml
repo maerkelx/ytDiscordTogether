@@ -34,9 +34,6 @@ jobs:
           echo $GITHUB_SHA
       - name: Build the Docker image
         run: |
-          docker logout https://index.docker.io/v1/
-          cat /home/runner/.docker/config.json
           echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin docker.io
-          cat /home/runner/.docker/config.json
           docker build . --file Dockerfile --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
           docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA

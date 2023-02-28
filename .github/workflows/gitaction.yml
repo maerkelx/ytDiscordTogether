@@ -1,3 +1,4 @@
+#TODO: Create Gitaction for main and dev branch
 name: Youtube Discord Together - Release and Docker Process
 run-name: ${{ github.actor }} started a release and docker process
 on: [push]

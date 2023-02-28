@@ -1,13 +1,12 @@
 import fetch from 'node-fetch';
 import { serialize } from 'cookie';
-import { config } from '../../utils/config';
 import { sign } from 'jsonwebtoken';
 
+const scope = ['identify'].join(' ');
 const CLIENT_ID = '1080066011753086977';
 const CLIENT_SECRET = 'KP8mR3nFNDma_cn6wvdlCFit8YwDGdv8';
 const JWT_SECRET = 'absoluteSafeSecret123!?';
-const REDIRECT_URI = 'http://localhost:3000/';
-const scope = ['identify'].join(' ');
+const REDIRECT_URI = 'http://localhost:3000/api/auth';
 
 const OAUTH_QS = new URLSearchParams({
   client_id: CLIENT_ID,
@@ -26,8 +25,7 @@ export default async (req, res) => {
   if (error) {
     return res.redirect(`/?error=${req.query.error}`);
   }
-
-  if (!code || typeof code !== 'string') return res.redirect(OAUTH_URI);
+  if (code == null) return res.redirect(OAUTH_URI);
 
   const body = new URLSearchParams({
     client_id: CLIENT_ID,
@@ -51,19 +49,20 @@ export default async (req, res) => {
     return res.redirect(OAUTH_URI);
   }
 
-  const me = await fetch('http://discord.com/api/users/@me', {
+  console.log(token_type);
+  console.log(access_token);
+
+  const me = await fetch('https://discord.com/api/users/@me', {
     headers: { Authorization: `${token_type} ${access_token}` },
   }).then((res) => res.json());
 
-  if (!('id' in me)) {
-    return res.redirect(OAUTH_URI);
-  }
+  console.log(me);
 
   const token = sign(me, JWT_SECRET, { expiresIn: '24h' });
 
   res.setHeader(
     'Set-Cookie',
-    serialize(config.cookieName, token, {
+    serialize('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
       sameSite: 'lax',

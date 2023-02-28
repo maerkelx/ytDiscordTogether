@@ -1,9 +1,6 @@
-name: Youtube Discord Together
+name: Youtube Discord Together - Release and Docker Process
 run-name: ${{ github.actor }} started a release and docker process
-on:
-  push:
-    branches:
-      - test
+on: [push]
 jobs:
   Build-Release-Process:
     permissions: write-all

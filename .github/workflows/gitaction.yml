@@ -1,6 +1,7 @@
 name: Youtube Discord Together - Release and Docker Process
 run-name: ${{ github.actor }} started a release and docker process
 on: [push]
+#TODO: Add a TAG control process
 jobs:
   Build-Release-Process:
     permissions: write-all
@@ -18,16 +19,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-<<<<<<< HEAD
-          tag_name: ${{ github.ref }}
-=======
-          tag_name: ${{ github.run_id }}
->>>>>>> 7fe4303 (changed tag_name to github.run_id)
+          tag_name: ${{ github.run_id }} #TODO: Set to a tag of format "[0-9]+.[0-9]+.[0-9]+"
           release_name: Release ${{ github.ref }}
           body: |
             Changes in this Release
-            - First Change
-            - Second Change
+            - ${{ github.event.head_commit.message }}
+          # link to changelog
           draft: false
           prerelease: false
   Docker-Process:
@@ -37,8 +34,9 @@ jobs:
       - run:
           echo $GITHUB_SHA
       - name: Build the Docker image
+        #TODO: Set to a tag of format "[0-9]+.[0-9]+.[0-9]+"
         run: |
           docker logout
           echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin docker.io
-          docker build . --file Dockerfile --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/ytdiscordtogether:12345
-          docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/ytdiscordtogether:12345
+          docker build . --file Dockerfile --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/ytdiscordtogether:${{ github.run_id }}
+          docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/ytdiscordtogether:${{ github.run_id }}

@@ -1,8 +1,11 @@
 #TODO: Create Gitaction for main and dev branch
 #TODO: On Main branch add "latest" tag to docker image and github release
-name: Youtube Discord Together
+name: Youtube Discord Together - dev
 run-name: ${{ github.actor }} started this workflow
-on: [push]
+on: 
+  push:
+    branches:
+      - dev
 #TODO: Add a TAG control process
 jobs:
   Release:

@@ -15,9 +15,24 @@ jobs:
         run: npm install
       - name: build
         run: npm run build
-      - name: Tag
-        uses: K-Phoen/semver-release-action@master
-        with:
-          release_branch: main
+      - name: create tags
+        id: tagger
+        uses: anothrNick/github-tag-action@1.36.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DRY_RUN: true
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.taggerDryRun.outputs.new_tag }}
+          release_name: Release ${{ steps.taggerDryRun.outputs.new_tag }}
+          body: |
+            Changes in this Release
+            - ${{ github.event.head_commit.message }}
+          # link to changelog
+          draft: false
+          prerelease: false

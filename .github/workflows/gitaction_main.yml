@@ -15,8 +15,7 @@ jobs:
         run: npm install
       - name: build
         run: npm run build
-      - if: github.event.pull_request.merged == true
-        name: Tag
+      - name: Tag
         uses: K-Phoen/semver-release-action@master
         with:
           release_branch: main

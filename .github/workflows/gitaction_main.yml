@@ -31,8 +31,6 @@ jobs:
           release_name: Release ${{ steps.tagger.outputs.new_tag }}
           body: |
             Changes in this Release
-            - ${{ github.event.head_commit.message }}
-          # link to changelog
           draft: false
           prerelease: false
   Docker:

@@ -41,18 +41,30 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: echo $GITHUB_SHA
+      - name: create tags
+        id: tagger
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
       - name: Build the Docker image
         run: |
           docker logout
           echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin docker.io
-          docker build . --file Dockerfile --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/ytdiscordtogether:${{ steps.tagger.outputs.new_tag }}
-          docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/ytdiscordtogether:${{ steps.tagger.outputs.new_tag }}
+          docker build . --file Dockerfile --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/ytdiscordtogether:${{ steps.tagger.outputs.tag }}
+          docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/ytdiscordtogether:${{ steps.tagger.outputs.tag }}
   Webhook:
     runs-on: ubuntu-latest
     needs: [Release, Docker]
     steps:
+      - name: create tags
+        id: tagger
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
       - name: Send Webhook
         uses: joelwmale/webhook-action@master
         env:
           WEBHOOK_URL: https://webhook.site/2a3024bc-adf7-4fc6-b224-63a4dce21ed6
-          WEBHOOK_MESSAGE: "New Release: ${{ steps.tagger.outputs.new_tag }}"
+          WEBHOOK_MESSAGE: "New Release: ${{ steps.tagger.outputs.tag }}"

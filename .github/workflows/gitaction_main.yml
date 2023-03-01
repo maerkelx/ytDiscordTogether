@@ -28,8 +28,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.taggerDryRun.outputs.new_tag }}
-          release_name: Release ${{ steps.taggerDryRun.outputs.new_tag }}
+          tag_name: ${{ steps.tagger.outputs.new_tag }}
+          release_name: Release ${{ steps.tagger.outputs.new_tag }}
           body: |
             Changes in this Release
             - ${{ github.event.head_commit.message }}

@@ -1,0 +1,106 @@
+[debug] [2023-03-01T07:04:05.302Z] ----------------------------------------------------------------------
+[debug] [2023-03-01T07:04:05.302Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2023-03-01T07:04:05.303Z] CLI Version:   11.24.0
+[debug] [2023-03-01T07:04:05.303Z] Platform:      darwin
+[debug] [2023-03-01T07:04:05.303Z] Node Version:  v18.13.0
+[debug] [2023-03-01T07:04:05.303Z] Time:          Wed Mar 01 2023 08:04:05 GMT+0100 (Central European Standard Time)
+[debug] [2023-03-01T07:04:05.304Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-03-01T07:04:05.306Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-03-01T07:04:05.306Z] > authorizing via signed-in user (privat.neumann69@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/marvinneumann/dev/ytDiscordTogether
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2023-03-01T07:04:10.714Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2023-03-01T07:04:13.102Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2023-03-01T07:04:13.102Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project youtuy-d451a (youtuy) 
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[debug] [2023-03-01T07:04:23.819Z] >>> [apiv2][query] GET https://www.gstatic.com/firebasejs/releases.json [none]
+[debug] [2023-03-01T07:04:24.145Z] <<< [apiv2][status] GET https://www.gstatic.com/firebasejs/releases.json 200
+[debug] [2023-03-01T07:04:24.145Z] <<< [apiv2][body] GET https://www.gstatic.com/firebasejs/releases.json {"current":{"version":"9.17.1","browserURL":"https://www.gstatic.com/firebasejs/9.17.1/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/9.17.1/firebase.tgz"},"live":{"version":"9.17","browserURL":"https://www.gstatic.com/firebasejs/live/9.17/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/live/9.17/firebase.tgz"},"components":{"analytics":"https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js","app":"https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js","app-check":"https://www.gstatic.com/firebasejs/9.17.1/firebase-app-check.js","auth":"https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js","auth/cordova":"https://www.gstatic.com/firebasejs/9.17.1/firebase-auth/cordova.js","auth/react-native":"https://www.gstatic.com/firebasejs/9.17.1/firebase-auth/react-native.js","functions":"https://www.gstatic.com/firebasejs/9.17.1/firebase-functions.js","firestore":"https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js","firestore/lite":"https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore/lite.js","installations":"https://www.gstatic.com/firebasejs/9.17.1/firebase-installations.js","storage":"https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js","performance":"https://www.gstatic.com/firebasejs/9.17.1/firebase-performance.js","remote-config":"https://www.gstatic.com/firebasejs/9.17.1/firebase-remote-config.js","messaging":"https://www.gstatic.com/firebasejs/9.17.1/firebase-messaging.js","messaging/sw":"https://www.gstatic.com/firebasejs/9.17.1/firebase-messaging/sw.js","database":"https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js","firestore.memory":"https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.memory.js"}}
+[info] ✔  Wrote public/index.html 
+[info] 
+[info] i  Detected a .git folder at /Users/marvinneumann/dev/ytDiscordTogether 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=548565751&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
+[debug] [2023-03-01T07:04:42.589Z] >>> [apiv2][query] POST https://github.com/login/oauth/access_token [none]
+[debug] [2023-03-01T07:04:42.590Z] >>> [apiv2][body] POST https://github.com/login/oauth/access_token [stream]
+[debug] [2023-03-01T07:04:43.019Z] <<< [apiv2][status] POST https://github.com/login/oauth/access_token 200
+[debug] [2023-03-01T07:04:43.020Z] <<< [apiv2][body] POST https://github.com/login/oauth/access_token {"access_token":"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","token_type":"bearer","scope":"read:user,repo"}
+[debug] [2023-03-01T07:04:43.038Z] >>> [apiv2][query] GET https://api.github.com/user [none]
+[debug] [2023-03-01T07:04:43.470Z] <<< [apiv2][status] GET https://api.github.com/user 200
+[debug] [2023-03-01T07:04:43.470Z] <<< [apiv2][body] GET https://api.github.com/user {"login":"MarNeumann","id":21364119,"node_id":"MDQ6VXNlcjIxMzY0MTE5","avatar_url":"https://avatars.githubusercontent.com/u/21364119?v=4","gravatar_id":"","url":"https://api.github.com/users/MarNeumann","html_url":"https://github.com/MarNeumann","followers_url":"https://api.github.com/users/MarNeumann/followers","following_url":"https://api.github.com/users/MarNeumann/following{/other_user}","gists_url":"https://api.github.com/users/MarNeumann/gists{/gist_id}","starred_url":"https://api.github.com/users/MarNeumann/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/MarNeumann/subscriptions","organizations_url":"https://api.github.com/users/MarNeumann/orgs","repos_url":"https://api.github.com/users/MarNeumann/repos","events_url":"https://api.github.com/users/MarNeumann/events{/privacy}","received_events_url":"https://api.github.com/users/MarNeumann/received_events","type":"User","site_admin":false,"name":"Marvin Neumann","company":null,"blog":"","location":"Germany","email":null,"hireable":null,"bio":null,"twitter_username":null,"public_repos":1,"public_gists":0,"followers":1,"following":0,"created_at":"2016-08-31T14:23:15Z","updated_at":"2023-02-28T09:34:17Z","private_gists":0,"total_private_repos":9,"owned_private_repos":9,"disk_usage":29919,"collaborators":1,"two_factor_authentication":false,"plan":{"name":"free","space":976562499,"collaborators":0,"private_repos":10000}}
+[info] 
+[info] ✔  Success! Logged into GitHub as MarNeumann 
+[info] 
+[debug] [2023-03-01T07:05:12.470Z] >>> [apiv2][query] GET https://api.github.com/repos//actions/secrets/public-key type=owner
+[debug] [2023-03-01T07:05:12.622Z] >>> [apiv2][query] GET https://api.github.com/repos//actions/secrets/public-key type=owner
+[debug] [2023-03-01T07:05:13.590Z] <<< [apiv2][status] GET https://api.github.com/repos//actions/secrets/public-key 404
+[debug] [2023-03-01T07:05:13.590Z] <<< [apiv2][body] GET https://api.github.com/repos//actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2023-03-01T07:05:14.073Z] <<< [apiv2][status] GET https://api.github.com/repos//actions/secrets/public-key 404
+[debug] [2023-03-01T07:05:14.074Z] <<< [apiv2][body] GET https://api.github.com/repos//actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2023-03-01T07:05:30.335Z] ----------------------------------------------------------------------
+[debug] [2023-03-01T07:05:30.336Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2023-03-01T07:05:30.336Z] CLI Version:   11.24.0
+[debug] [2023-03-01T07:05:30.336Z] Platform:      darwin
+[debug] [2023-03-01T07:05:30.336Z] Node Version:  v18.13.0
+[debug] [2023-03-01T07:05:30.341Z] Time:          Wed Mar 01 2023 08:05:30 GMT+0100 (Central European Standard Time)
+[debug] [2023-03-01T07:05:30.341Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-03-01T07:05:30.344Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-03-01T07:05:30.344Z] > authorizing via signed-in user (privat.neumann69@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/marvinneumann/dev/ytDiscordTogether
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2023-03-01T07:05:55.611Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2023-03-01T07:06:04.424Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2023-03-01T07:06:04.425Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project akira-91264 (Akira) 
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 

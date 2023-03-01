@@ -40,3 +40,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Run with Docker
 
 To run this as a docker container check out our [Docker Container on DockerHub](https://hub.docker.com/r/marschal66/ytdiscordtogether) or run 
+```bash
+docker pull marschal66/ytdiscordtogether
+```

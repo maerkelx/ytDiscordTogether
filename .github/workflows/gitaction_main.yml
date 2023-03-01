@@ -1,0 +1,24 @@
+name: Youtube Discord Together - main
+run-name: ${{ github.actor }} started this workflow
+on:
+  push:
+    branches:
+      - main
+jobs:
+  Release:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: npm install
+        run: npm install
+      - name: build
+        run: npm run Build
+      - if: github.event.pull_request.merged
+        name: Tag
+        uses: K-Phoen/semver-release-action@master
+        with:
+          release_branch: main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -3,9 +3,9 @@ import { serialize } from 'cookie';
 import { sign } from 'jsonwebtoken';
 
 const scope = ['identify'].join(' ');
-const CLIENT_ID = '1080066011753086977';
-const CLIENT_SECRET = 'KP8mR3nFNDma_cn6wvdlCFit8YwDGdv8';
-const JWT_SECRET = 'absoluteSafeSecret123!?';
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET;
 const REDIRECT_URI = 'http://localhost:3000/api/auth';
 
 const OAUTH_QS = new URLSearchParams({

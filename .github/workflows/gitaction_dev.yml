@@ -50,7 +50,7 @@ jobs:
     needs: [Release, Docker]
     steps:
       - name: Webhook
-        uses: joelwmale/webhook-action@v2.3.2
+        uses: joelwmale/webhook-action@master
         with:
           url: ${{ secrets.WEBHOOK_URL }}
           headers: '{"repository": "maerkelx/ytDiscordTogether"}'

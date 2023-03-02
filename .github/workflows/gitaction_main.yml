@@ -66,4 +66,4 @@ jobs:
         with:
           url: ${{ secrets.WEBHOOK_URL }}
           headers: '{"repository": "maerkelx/ytDiscordTogether"}'
-          body: '{"event": "deployment", "repository": "maerkelx/ytDiscordTogether", "token": "${{ secrets.GITHUB_TOKEN }}"}'
+          body: '{"event": "deployment", "repository": "maerkelx/ytDiscordTogether", "token": "${{ secrets.SERVER_PASSWORD }}"}'

@@ -62,7 +62,7 @@ export default function Watch() {
             ref={playerRef}
             className="w-full h-full"
             src={
-              "https://www.youtube.com/embed/0?controls=0&mute=0&enablejsapi=1"
+              "https://www.youtube.com/embed/0?mute=0&enablejsapi=1"
           }
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"

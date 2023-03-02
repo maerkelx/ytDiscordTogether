@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   ytdct:
-    image: marschal66/ytdiscordtogether:v0.3.0
+    image: marschal66/ytdiscordtogether:v0.4.0
     restart: unless-stopped
     ports:
       - 3000:3000
@@ -13,7 +13,9 @@ services:
     ports:
       - 8090:8090
     volumes:
-      - pocketbase-data:/pb_data
+      - type: bind
+        source: ./pocketbase/pb_data
+        target: /pb_data
     networks:
       - ytdct
 volumes:

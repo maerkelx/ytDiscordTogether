@@ -2,6 +2,7 @@
 
 # private data
 /pocketbase/pb_data*
+/pocketbase/pb_data*/*
 
 # dependencies
 /node_modules

@@ -8,14 +8,14 @@ services:
     networks:
       - ytdct
   pocketbase:
-    image: augustodelg/pocketbase:latest
+    image: spectado/pocketbase
     restart: unless-stopped
     ports:
-      - 8090:8090
+      - 80:80
     volumes:
       - type: bind
         source: ./pocketbase/
-        target: /pocketbase/
+        target: /pb_data
     networks:
       - ytdct
 volumes:

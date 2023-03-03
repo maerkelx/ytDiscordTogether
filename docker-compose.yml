@@ -15,8 +15,8 @@ services:
         source: ./pocketbase/pb_data
         target: /pb_data
       - type: bind
-        source: ./pocketbase/pb_migration
-        target: /pb_migration
+        source: ./pocketbase/pb_migrations
+        target: /pb_migrations
     networks:
       - ytdct
 volumes:

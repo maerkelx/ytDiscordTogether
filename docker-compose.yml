@@ -14,8 +14,8 @@ services:
       - 8090:8090
     volumes:
       - type: bind
-        source: ./pocketbase/pb_data
-        target: /pb_data
+        source: ./pocketbase/
+        target: /pocketbase/
     networks:
       - ytdct
 volumes:

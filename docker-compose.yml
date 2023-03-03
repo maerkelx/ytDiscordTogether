@@ -10,15 +10,17 @@ services:
   pocketbase:
     image: spectado/pocketbase
     restart: unless-stopped
-    ports:
-      - 80:80
     volumes:
       - type: bind
-        source: ./pocketbase/
+        source: ./pocketbase/pb_data
         target: /pb_data
+      - type: bind
+        source: ./pocketbase/pb_migration
+        target: /pb_migration
     networks:
       - ytdct
 volumes:
   pocketbase-data:
+  pocketbase-migration:
 networks:
   ytdct:

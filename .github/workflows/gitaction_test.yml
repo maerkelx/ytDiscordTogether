@@ -1,0 +1,52 @@
+name: Youtube Discord Together - main
+run-name: ${{ github.actor }} started this workflow
+on:
+  push:
+    branches:
+      - main
+jobs:
+  Release:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: npm install
+        run: npm install
+      - name: build
+        run: npm run build
+      - name: create tags
+        id: tagger
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tagger.outputs.new_tag }}
+          release_name: Release ${{ steps.tagger.outputs.new_tag }}
+          body: |
+            Changes in this Release
+          draft: false
+          prerelease: false
+  Docker:
+    runs-on: ubuntu-latest
+    needs: [Release]
+    steps:
+      - uses: actions/checkout@v2
+      - name: create tags
+        id: tagger
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+      - name: Build the Docker image
+        run: |
+          docker logout
+          echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin docker.io
+          docker build . --file Dockerfile -t ${{ secrets.DOCKER_HUB_USERNAME }}/${{secrets.DOCKER_HUB_REPOSITORY}}:${{ steps.tagger.outputs.tag }} -t ${{ secrets.DOCKER_HUB_USERNAME }}/${{secrets.DOCKER_HUB_REPOSITORY}}:latest
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/${{secrets.DOCKER_HUB_REPOSITORY}} --all-tags

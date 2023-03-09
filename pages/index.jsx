@@ -5,14 +5,42 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 import Cookies from 'js-cookie'
 import  discordRichPresence  from 'discord-rich-presence';
-
+import DiscordRPC from 'discord-rpc';
+import { set } from "cookie-cutter";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = 'http://localhost:3000/api/auth';
 
+DiscordRPC.register('1080066011753086977');
+const RPC = new DiscordRPC.Client({ transport: 'ipc' });
 
+async function setActivity(){
+  if(!RPC){
+    console.log("RPC not ready")
+    return;} 
+  console.log("Setting activity")
+
+  RPC.setActivity({
+    state: 'slithering',
+    details: '🐍',
+    startTimestamp: Date.now(),
+    endTimestamp: Date.now() + 1337,
+    largeImageKey: 'snek_large',
+    smallImageKey: 'snek_small',
+    instance: true,
+  })
+}
+
+RPC.on('ready'  ,async () => {
+  setActivity();
+
+  setInterval(() => {
+    setActivity(); 
+  }, 15*1000);
+});
 
 export default function Home() {
     const router = useRouter();
@@ -31,31 +59,11 @@ export default function Home() {
   }
 
 
-
-  useEffect(() => {
-    const client = discordRichPresence("432857510106365965");
-    console.log("rpc");
-    client.updatePresence({
-      state: 'slithering',
-      details: '🐍',
-      startTimestamp: Date.now(),
-      endTimestamp: Date.now() + 1337,
-      largeImageKey: 'snek_large',
-      smallImageKey: 'snek_small',
-      instance: true,
-    },[token]);
-
-    return () => {
-      // Clean up the Discord rich presence on unmounting of the component
-      // client.clearPresence();
-    }
-  }
-  )
   
   return (
     <>
       <div className="w-screen h-screen flex flex-row justify-center items-center bg-neutral-800">
-        <a href="/api/auth">
+        <Link href="/api/auth">
         <div className="flex flex-row justify-center items-center px-2 py-3 bg-[#5865F2] hover:bg-[#717cf4] w-48 text-white gap-5 select-none rounded-xl hover:shadow-lg shadow-[#5865F2] duration-500">
           <div>
             <svg
@@ -71,8 +79,8 @@ export default function Home() {
           </div>
           <p className="font-semibold">Login</p>
         </div>
-        </a>
-        <div  onClick={() => getCookie()} className="flex flex-row justify-center items-center px-2 py-3 bg-[#5865F2] hover:bg-[#717cf4] w-48 text-white gap-5 select-none rounded-xl hover:shadow-lg shadow-[#5865F2] duration-500">
+        </Link>
+        <div  onClick={() => setActivity()} className="flex flex-row justify-center items-center px-2 py-3 bg-[#5865F2] hover:bg-[#717cf4] w-48 text-white gap-5 select-none rounded-xl hover:shadow-lg shadow-[#5865F2] duration-500">
           <p className="font-semibold">testCookieHandler</p>        
         </div>
       </div>

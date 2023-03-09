@@ -2,7 +2,13 @@ import fetch from 'node-fetch';
 import { serialize } from 'cookie';
 import { sign } from 'jsonwebtoken';
 
-const scope = ['identify'].join(' ');
+const scope = [
+  'identify',
+  'rpc',
+  'rpc.activities.write',
+  'rpc.voice.write',
+  'rpc.notifications.read',
+].join(' ');
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const JWT_SECRET = process.env.JWT_SECRET;

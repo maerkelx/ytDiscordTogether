@@ -23,12 +23,12 @@
     "jsonwebtoken": "^9.0.0",
     "next": "13.2.1",
     "node-fetch": "^3.3.0",
-    "node-scp": "^0.0.22",
     "npm": "^9.5.1",
     "react": "18.2.0",
     "react-cookie": "^4.1.1",
     "react-dom": "18.2.0",
-    "react-youtube": "^10.1.0"
+    "react-youtube": "^10.1.0",
+    "ssh2-sftp-client": "^9.0.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

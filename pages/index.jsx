@@ -7,13 +7,10 @@ import Link from "next/link";
 import { decodeBase64 } from "@/util/Base64Handler";
 
 const inter = Inter({ subsets: ["latin"] });
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = 'http://localhost:3000/api/auth';
-
 
 export default function Home() {
     const router = useRouter();
+
 
     const { token } = router.query;
     const[user, setUser] = useState({});
@@ -23,6 +20,9 @@ export default function Home() {
       if(storage != undefined){
       setUser(JSON.parse(storage));}
     }, []);
+
+    useEffect(() => {  if(!(user && Object.keys(user).length === 0
+      && Object.getPrototypeOf(user) === Object.prototype)){router.push('watch')}})
 
     useEffect(() => {
     if(token != undefined){

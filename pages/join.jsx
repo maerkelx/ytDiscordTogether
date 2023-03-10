@@ -7,52 +7,18 @@ import { useState, useRef, useEffect, useCallback } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Watch() {
-    const DiscordRPC = require("discord-rpc");
-
-    // Set this to your Client ID.
-    const clientId = "1080066011753086977";
-
-    // Only needed if you want to use spectate, join, or ask to join
-    DiscordRPC.register(clientId);
-
-    const rpc = new DiscordRPC.Client({ transport: "ipc" });
-    const startTimestamp = new Date();
-
-    async function setActivity(videoTitle) {
-        rpc.setActivity({
-            details: "Gorgon City B2B John Summit",
-
-            startTimestamp,
-            largeImageKey: "snek_large",
-            largeImageText: "tea is delicious",
-            smallImageKey: "snek_small",
-            smallImageText: "i am my own pillows",
-            instance: false,
-        });
-    }
-
-    rpc.on("ready", () => {
-        setActivity();
-
-        // activity can only be set every 15 seconds
-        setInterval(() => {
-            setActivity();
-        }, 15e3);
-    });
-
-    rpc.login({ clientId }).catch(console.error);
-
     const [player, setPlayer] = useState(null);
     const playerRef = useRef(null);
 
     const searchParams = useSearchParams();
     const videoId = searchParams.get("v");
+    const timestamp = searchParams.get("t");
 
-    const handleVideoChange = async (player, videoId) => {
+    const handleVideoChange = (player, videoId, timestamp) => {
         console.log("videoId:", videoId);
         if (player) {
-            player.loadVideoById(videoId, 0, "highres");
-            await setActivity();
+            player.loadVideoById(videoId, timestamp, "highres");
+            player.playVideo();
         }
     };
 
@@ -60,12 +26,12 @@ export default function Watch() {
         window.onYouTubeIframeAPIReady = () => {
             const player = new window.YT.Player(playerRef.current, {
                 events: {
-                    onReady: async () => {
+                    onReady: () => {
                         console.log("Player is ready");
                         setPlayer(player);
                     },
                     onStateChange: (event) => {
-                        // handleStateChange(event);
+                        // handleStateChange(event, player);
                     },
                 },
             });
@@ -77,10 +43,19 @@ export default function Watch() {
     }, []);
 
     useEffect(() => {
-        if (player && videoId) {
-            handleVideoChange(player, videoId);
+        if (player && videoId && timestamp) {
+            handleVideoChange(player, videoId, timestamp);
         }
-    }, [player, videoId]);
+    }, [player, videoId, timestamp]);
+
+    useEffect(() => {
+        if (player) {
+            const interval = setInterval(() => {
+                console.log("Current time: ", player.getCurrentTime());
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [player]);
 
     return (
         <>

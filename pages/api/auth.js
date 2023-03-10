@@ -13,7 +13,7 @@ const scope = [
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const JWT_SECRET = process.env.JWT_SECRET;
-const REDIRECT_URI = 'http://localhost:3000/api/auth';
+const REDIRECT_URI = 'http://youtuy.com:3000/api/auth';
 
 const OAUTH_QS = new URLSearchParams({
   client_id: CLIENT_ID,

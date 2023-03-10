@@ -1,59 +1,31 @@
 import { Inter } from "next/font/google";
-import { redirect } from 'next/navigation';
 import { useRouter } from 'next/router';
 
-import { useContext, useEffect, useState } from "react";
-import Cookies from 'js-cookie'
-import  discordRichPresence  from 'discord-rich-presence';
-import DiscordRPC from 'discord-rpc';
-import { set } from "cookie-cutter";
+import {  useEffect, useState } from "react";
+
 import Link from "next/link";
-import { verify } from "jsonwebtoken";
 import { decodeBase64 } from "@/util/Base64Handler";
-import { DiscordContextProvider, useDiscordContext } from "@/util/DcContext";
 
 const inter = Inter({ subsets: ["latin"] });
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = 'http://localhost:3000/api/auth';
-/*
-DiscordRPC.register('1080066011753086977');
-const RPC = new DiscordRPC.Client({ transport: 'ipc' });
 
-async function setActivity(){
-  if(!RPC){
-    console.log("RPC not ready")
-    return;} 
-  console.log("Setting activity")
-
-  RPC.setActivity({
-    state: 'slithering',
-    details: '🐍',
-    startTimestamp: Date.now(),
-    endTimestamp: Date.now() + 1337,
-    largeImageKey: 'snek_large',
-    smallImageKey: 'snek_small',
-    instance: true,
-  })
-}
-
-RPC.on('ready'  ,async () => {
-  setActivity();
-
-  setInterval(() => {
-    setActivity(); 
-  }, 15*1000);
-});
-*/
 
 export default function Home() {
     const router = useRouter();
+
     const { token } = router.query;
     const[user, setUser] = useState({});
-    const test = useContext(DiscordContextProvider)
-    console.log('test: ' + test);
+
     useEffect(() => {
-    if(token != undefined ){
+      const storage = localStorage.getItem('dcToken');
+      if(storage != undefined){
+      setUser(JSON.parse(storage));}
+    }, []);
+
+    useEffect(() => {
+    if(token != undefined){
     localStorage.setItem('dcToken', decodeBase64(token));
     setUser(JSON.parse(decodeBase64(token)));
     console.log('Hello: ' + user.username)

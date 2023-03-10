@@ -25,6 +25,18 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
+        if (
+            !(
+                user &&
+                Object.keys(user).length === 0 &&
+                Object.getPrototypeOf(user) === Object.prototype
+            )
+        ) {
+            router.push("watch");
+        }
+    });
+
+    useEffect(() => {
         if (token != undefined) {
             localStorage.setItem("dcToken", decodeBase64(token));
             setUser(JSON.parse(decodeBase64(token)));

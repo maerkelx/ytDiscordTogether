@@ -2,18 +2,21 @@ import { Inter } from "next/font/google";
 import { redirect } from 'next/navigation';
 import { useRouter } from 'next/router';
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Cookies from 'js-cookie'
 import  discordRichPresence  from 'discord-rich-presence';
 import DiscordRPC from 'discord-rpc';
 import { set } from "cookie-cutter";
 import Link from "next/link";
+import { verify } from "jsonwebtoken";
+import { decodeBase64 } from "@/util/Base64Handler";
+import { DiscordContextProvider, useDiscordContext } from "@/util/DcContext";
 
 const inter = Inter({ subsets: ["latin"] });
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = 'http://localhost:3000/api/auth';
-
+/*
 DiscordRPC.register('1080066011753086977');
 const RPC = new DiscordRPC.Client({ transport: 'ipc' });
 
@@ -41,13 +44,24 @@ RPC.on('ready'  ,async () => {
     setActivity(); 
   }, 15*1000);
 });
+*/
 
 export default function Home() {
     const router = useRouter();
     const { token } = router.query;
-    const [cookie, setCookie] = useState(null);
+    const[user, setUser] = useState({});
+    const test = useContext(DiscordContextProvider)
+    console.log('test: ' + test);
+    useEffect(() => {
+    if(token != undefined ){
+    localStorage.setItem('dcToken', decodeBase64(token));
+    setUser(JSON.parse(decodeBase64(token)));
+    console.log('Hello: ' + user.username)
+    }
+    }, [token]);
+    
   
-
+/*
   useEffect (() => {    
     Cookies.set('dcToken',token, { expires: 7});
   }, [token]);      
@@ -57,12 +71,15 @@ export default function Home() {
     const decodedString = atob(cookie);
     console.log(decodedString); // Output: "Hello World!"
   }
-
+*/
 
   
   return (
     <>
       <div className="w-screen h-screen flex flex-row justify-center items-center bg-neutral-800">
+        <div className="text-lg text-white {{ !Object.keys(user).length && 'hidden' }}">
+          Welcome Back {user.username}
+        </div>
         <Link href="/api/auth">
         <div className="flex flex-row justify-center items-center px-2 py-3 bg-[#5865F2] hover:bg-[#717cf4] w-48 text-white gap-5 select-none rounded-xl hover:shadow-lg shadow-[#5865F2] duration-500">
           <div>
@@ -80,9 +97,6 @@ export default function Home() {
           <p className="font-semibold">Login</p>
         </div>
         </Link>
-        <div  onClick={() => setActivity()} className="flex flex-row justify-center items-center px-2 py-3 bg-[#5865F2] hover:bg-[#717cf4] w-48 text-white gap-5 select-none rounded-xl hover:shadow-lg shadow-[#5865F2] duration-500">
-          <p className="font-semibold">testCookieHandler</p>        
-        </div>
       </div>
     </>
   );

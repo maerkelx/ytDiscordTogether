@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
 import { serialize } from 'cookie';
-import { sign } from 'jsonwebtoken';
+import { JsonWebTokenError, sign } from 'jsonwebtoken';
+import { encodeBase64 } from '@/util/Base64Handler';
 
 const scope = [
   'identify',
@@ -55,26 +56,12 @@ export default async (req, res) => {
     return res.redirect(OAUTH_URI);
   }
 
-  console.log(token_type);
-  console.log(access_token);
-
   const me = await fetch('https://discord.com/api/users/@me', {
     headers: { Authorization: `${token_type} ${access_token}` },
   }).then((res) => res.json());
 
-  console.log(me);
-
-  const token = sign(me, JWT_SECRET, { expiresIn: '24h' });
-
-  res.setHeader(
-    'Set-Cookie',
-    serialize('dcToken', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV !== 'development',
-      sameSite: 'lax',
-      path: '/',
-    })
-  );
+  //base64 encode me with buffer
+  const token = encodeBase64(JSON.stringify(me));
 
   res.redirect('/?token=' + token);
 };

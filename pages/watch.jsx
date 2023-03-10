@@ -52,7 +52,6 @@ export default function Watch() {
         console.log("videoId:", videoId);
         if (player) {
             player.loadVideoById(videoId, 0, "highres");
-            await setActivity();
         }
     };
 
@@ -63,6 +62,7 @@ export default function Watch() {
                     onReady: async () => {
                         console.log("Player is ready");
                         setPlayer(player);
+                        await setActivity();
                     },
                     onStateChange: (event) => {
                         // handleStateChange(event);
